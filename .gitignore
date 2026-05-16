@@ -526,3 +526,4 @@ obj/
 
 # Database local
 *.db
+obj

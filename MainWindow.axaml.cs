@@ -10,6 +10,7 @@ using MeuCaixaPDV.Models;
 using MeuCaixaPDV.Services;
 using MeuCaixaPDV.Data;
 
+
 namespace MeuCaixaPDV;
 
 public partial class MainWindow : Window
@@ -23,6 +24,7 @@ public partial class MainWindow : Window
     private TextBlock _trocoText = null!;
     private TextBox _codigoInput = null!;
     private TextBox _valorRecebidoInput = null!;
+    private ImpressoraService _impressoraService;
 
     public MainWindow()
     {
@@ -40,6 +42,7 @@ public partial class MainWindow : Window
         _trocoText = this.FindControl<TextBlock>("TrocoText")!;
         _codigoInput = this.FindControl<TextBox>("CodigoInput")!;
         _valorRecebidoInput = this.FindControl<TextBox>("ValorRecebidoInput")!;
+        _impressoraService = new ImpressoraService();
 
         // Configurar botões
         var btnDinheiro = this.FindControl<Button>("BtnDinheiro")!;
@@ -229,9 +232,26 @@ public partial class MainWindow : Window
     private async void FinalizarVenda(string tipo, decimal valorPago = 0)
     {
         var total = _viewModel.ItensVenda.Sum(i => i.Subtotal);
+
+
+        try
+        {
+            _impressoraService.ImprimirCupom(_viewModel.ItensVenda.ToList(), total, tipo, valorPago);
+            _statusText.Text = "✅ Cupom enviado para impressora!";
+        }
+        catch (Exception ex)
+        {
+            _statusText.Text = $"⚠️ Erro na impressão: {ex.Message}";
+        }
+
+        // Resto do código de finalização...
         var mensagem = tipo == "Dinheiro" ?
-            $"💵 Venda finalizada em DINHEIRO\nTotal: R$ {total:F2}\nValor pago: R$ {valorPago:F2}\nTroco: R$ {(valorPago - total):F2}" :
-            $"✅ Venda finalizada em {tipo}\nTotal: R$ {total:F2}";
+            $"💵 Venda finalizada em DINHEIRO\nTotal: R$ {total:F2}\nValor pago: R$ {valorPago:F2}\nTroco: R$ {(valorPago - total):F2}\n\n🖨️ Cupom impresso!" :
+            $"✅ Venda finalizada em {tipo}\nTotal: R$ {total:F2}\n\n🖨️ Cupom impresso!";
+
+        // var mensagem = tipo == "Dinheiro" ?
+        //     $"💵 Venda finalizada em DINHEIRO\nTotal: R$ {total:F2}\nValor pago: R$ {valorPago:F2}\nTroco: R$ {(valorPago - total):F2}" :
+        //     $"✅ Venda finalizada em {tipo}\nTotal: R$ {total:F2}";
 
         // Dialog de confirmação
         var dialog = new Window

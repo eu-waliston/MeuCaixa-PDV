@@ -261,19 +261,19 @@ sqlite3 minimercado.db "SELECT * FROM Produtos;"
 ## Tela Principal
 
 ```text
-screenshots/caixa.png
+<img width="1302" height="890" alt="Image" src="https://github.com/user-attachments/assets/827e0595-0877-4470-bdc9-8e8b08ab5906" />
 ```
 
 ## Administração
 
 ```text
-screenshots/admin.png
+<img width="1218" height="815" alt="Image" src="https://github.com/user-attachments/assets/c60c2ccc-1c22-4805-8574-8975b96314bc" />
 ```
 
 ## Finalização de Venda
 
 ```text
-screenshots/pagamento.png
+<img width="846" height="589" alt="Image" src="https://github.com/user-attachments/assets/1c3f0149-faf9-47e9-b59b-810b5da5e49c" />
 ```
 
 ---

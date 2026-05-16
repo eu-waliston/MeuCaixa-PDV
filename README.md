@@ -282,7 +282,6 @@ sqlite3 minimercado.db "SELECT * FROM Produtos;"
 
 # 🔮 Roadmap
 
-* [ ] Impressão térmica ESC/POS
 * [ ] Relatórios de vendas
 * [ ] Dashboard com gráficos
 * [ ] Backup automático

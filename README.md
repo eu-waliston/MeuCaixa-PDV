@@ -1,3 +1,4 @@
+
 # 🛒 MeuCaixa PDV
 
 > Sistema de Ponto de Venda (PDV) moderno para minimercados, desenvolvido com **C# + Avalonia UI**, com suporte multiplataforma para **Linux** e **Windows**.
@@ -218,14 +219,18 @@ MeuCaixaPDV/
 # 🔄 Fluxo de Dados
 
 ```mermaid
-graph LR
-    A[Leitor de Código] --> B[MainWindow]
-    B --> C[ViewModel]
-    C --> D[ProdutoService]
-    D --> E[(SQLite)]
-    C --> F[Interface]
-    F --> G[Pagamento]
-    G --> H[Finalizar Venda]
+flowchart LR
+    A["Leitor de Código de Barras"] --> B["MainWindow"]
+    B --> C["MainWindowViewModel"]
+    C --> D["ProdutoService"]
+    D --> E[("SQLite Database")]
+
+    C --> F["Atualização da Interface"]
+    F --> G["Processamento de Pagamento"]
+    G --> H["Finalização da Venda"]
+
+    H --> I["Salvar Venda"]
+    I --> E
 ```
 
 ---
@@ -301,4 +306,5 @@ Abra uma issue ou envie um pull request.
 O **MeuCaixa PDV** foi criado para oferecer uma solução simples, leve e moderna para pequenos mercados e comércios locais.
 
 Sistema livre, open source e feito com muito café ☕ e código.
+
 

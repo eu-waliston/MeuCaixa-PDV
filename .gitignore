@@ -507,3 +507,22 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+# Build
+bin/
+obj/
+
+# User files
+*.user
+*.suo
+
+# Rider / VSCode / Visual Studio
+.vscode/
+.vs/
+.idea/
+
+# Logs
+*.log
+
+# Database local
+*.db

@@ -60,6 +60,17 @@
                                 CornerRadius="6"
                                 Cursor="Hand"
                                 Margin="10,0,0,0"/>
+
+                        <Button x:Name="BtnRelatorio" 
+                                DockPanel.Dock="Right"
+                                Content="📊 RELATÓRIO" 
+                                Background="#3498DB" 
+                                Foreground="White"
+                                FontSize="12"
+                                Padding="15,8"
+                                CornerRadius="6"
+                                Cursor="Hand"
+                                Margin="10,0,0,0"/>
                         
                         <StackPanel>
                             <TextBlock Text="📦 CÓDIGO DE BARRAS" Foreground="#BDC3C7" FontSize="12" FontWeight="Bold" Margin="0,0,0,5"/>

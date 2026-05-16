@@ -65,6 +65,16 @@ public partial class MainWindow : Window
                 await adminWindow.ShowDialog(this);
                 // Recarregar produtos após fechar admin (opcional)
             };
+        // ✅ BOTÃO RELATÓRIO - ADICIONE AQUI!
+        var btnRelatorio = this.FindControl<Button>("BtnRelatorio");
+        if (btnRelatorio != null)
+        {
+            btnRelatorio.Click += async (s, e) =>
+            {
+                var relatorioWindow = new RelatorioWindow();
+                await relatorioWindow.ShowDialog(this);
+            };
+        }
 
         // Processar código de barras
         _codigoInput.KeyDown += (sender, e) =>

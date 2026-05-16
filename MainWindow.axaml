@@ -1,184 +1,212 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="MeuCaixaPDV.MainWindow"
-        Title="Sistema de Caixa - Minimercado"
-        Width="1100" Height="750"
-        MinWidth="900" MinHeight="600"
-        Background="#F5F6FA">
+        Title="MeuCaixa - Sistema de PDV"
+        Width="1200" Height="750"
+        MinWidth="1000" MinHeight="650"
+        Background="#F0F2F5">
     
-    <!-- Recursos de estilo -->
+    <!-- Estilos Globais -->
     <Window.Styles>
+        <!-- Botões principais -->
+        <Style Selector="Button.PagamentoBtn">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="20,12"/>
+        </Style>
+        
+        <Style Selector="Button.PagamentoBtn:pointerover">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        
+        <!-- Cards -->
+        <Style Selector="Border.Card">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        
+        <!-- Inputs -->
         <Style Selector="TextBox">
             <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
             <Setter Property="Padding" Value="12,10"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
         
-        <Style Selector="Button">
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Padding" Value="20,12"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-        
-        <Style Selector="Button:pointerover">
-            <Setter Property="Opacity" Value="0.9"/>
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#6366F1"/>
+            <Setter Property="BorderThickness" Value="2"/>
         </Style>
     </Window.Styles>
     
-    <!-- Layout Principal -->
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/> <!-- Lista de produtos -->
-            <ColumnDefinition Width="1.2*"/> <!-- Painel de pagamento -->
-        </Grid.ColumnDefinitions>
-        
-        <!-- COLUNA ESQUERDA: PRODUTOS -->
-        <Border Grid.Column="0" Background="White" Margin="15" CornerRadius="12">
+    <DockPanel>
+        <!-- Barra Superior -->
+        <Border DockPanel.Dock="Top" Background="#1E293B" Padding="15,10">
             <DockPanel>
-                <!-- Cabeçalho da venda -->
-                <Border DockPanel.Dock="Top" Background="#2C3E50" CornerRadius="12,12,0,0" Padding="20">
+                <!-- Logo e Título -->
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Spacing="10">
+                    <TextBlock Text="🛒" FontSize="24"/>
                     <StackPanel>
-                        <TextBlock Text="🛒 VENDA ATUAL" Foreground="White" FontSize="16" FontWeight="Bold"/>
-                        <TextBlock Text="Passe o código ou digite manualmente" Foreground="#BDC3C7" FontSize="12" Margin="0,5,0,0"/>
+                        <TextBlock Text="MEU CAIXA" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                        <TextBlock Text="PDV Profissional" Foreground="#94A3B8" FontSize="11"/>
                     </StackPanel>
+                </StackPanel>
+                
+                <!-- Ações rápidas -->
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10">
+                    <Button x:Name="BtnRelatorio" 
+                            Content="📊 RELATÓRIO" 
+                            Background="#3B82F6" 
+                            Foreground="White"
+                            FontSize="12"
+                            Padding="15,8"
+                            CornerRadius="8"
+                            Cursor="Hand"/>
+                    
+                    <Button x:Name="BtnAdmin" 
+                            Content="⚙️ ADMIN" 
+                            Background="#F59E0B" 
+                            Foreground="White"
+                            FontSize="12"
+                            Padding="15,8"
+                            CornerRadius="8"
+                            Cursor="Hand"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        
+        <Grid Margin="15" RowDefinitions="Auto,Auto,*">
+            
+            <!-- Campo de código de barras -->
+            <Border Grid.Row="0" Background="White" CornerRadius="12" Margin="0,0,0,15" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="📷 LEITOR DE CÓDIGO DE BARRAS" Foreground="#475569" FontSize="12" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <TextBox x:Name="CodigoInput" 
+                             PlaceholderText="Digite ou passe o código aqui e pressione ENTER"
+                             FontSize="16"
+                             Background="White"
+                             BorderBrush="#E2E8F0"
+                             BorderThickness="1"/>
+                    <TextBlock Text="✓ Pressione ENTER após digitar o código" Foreground="#94A3B8" FontSize="11" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+            
+            <Grid Grid.Row="1" ColumnDefinitions="2*,1.2*" RowDefinitions="Auto,*">
+                
+                <!-- COLUNA ESQUERDA: PRODUTOS -->
+                <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="15" Margin="0,0,15,15">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,15">
+                            <TextBlock Text="🛍️" FontSize="20" Margin="0,0,10,0"/>
+                            <TextBlock Text="PRODUTOS ADICIONADOS" FontWeight="Bold" FontSize="14" Foreground="#1E293B"/>
+                            <Border x:Name="QuantidadeBadge" Background="#EF4444" CornerRadius="10" Padding="8,2" Margin="10,0,0,0">
+                                <TextBlock x:Name="QuantidadeText" Text="0" Foreground="White" FontSize="11" FontWeight="Bold"/>
+                            </Border>
+                        </StackPanel>
+                        
+                        <ScrollViewer Height="350">
+                            <StackPanel x:Name="ProdutosContainer" Spacing="10"/>
+                        </ScrollViewer>
+                    </DockPanel>
                 </Border>
                 
-                <!-- Campo de código de barras -->
-                <Border DockPanel.Dock="Top" Background="#2C3E50" Padding="10">
+                <!-- COLUNA DIREITA: PAGAMENTO -->
+                <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="15" Margin="15,0,0,15">
                     <DockPanel>
-                        <Button x:Name="BtnAdmin" 
-                                DockPanel.Dock="Right"
-                                Content="⚙️ ADMINISTRAR PRODUTOS" 
-                                Background="#E67E22" 
-                                Foreground="White"
-                                FontSize="12"
-                                Padding="15,8"
-                                CornerRadius="6"
-                                Cursor="Hand"
-                                Margin="10,0,0,0"/>
-
-                        <Button x:Name="BtnRelatorio" 
-                                DockPanel.Dock="Right"
-                                Content="📊 RELATÓRIO" 
-                                Background="#3498DB" 
-                                Foreground="White"
-                                FontSize="12"
-                                Padding="15,8"
-                                CornerRadius="6"
-                                Cursor="Hand"
-                                Margin="10,0,0,0"/>
-                        
-                        <StackPanel>
-                            <TextBlock Text="📦 CÓDIGO DE BARRAS" Foreground="#BDC3C7" FontSize="12" FontWeight="Bold" Margin="0,0,0,5"/>
-                            <TextBox x:Name="CodigoInput" 
-                                    PlaceholderText="Digite ou passe o código aqui e pressione ENTER"
-                                    FontSize="16"
-                                    Background="White"
-                                    BorderBrush="#DEE2E6"
-                                    BorderThickness="1"
-                                    Width="400"/>
+                        <StackPanel DockPanel.Dock="Top" Spacing="15">
+                            
+                            <!-- Total -->
+                            <Border Background="#F1F5F9" CornerRadius="12" Padding="20">
+                                <StackPanel>
+                                    <TextBlock Text="TOTAL DA COMPRA" Foreground="#64748B" FontSize="12" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TotalText" 
+                                               Text="0,00" 
+                                               Foreground="#10B981" 
+                                               FontSize="42" 
+                                               FontWeight="Bold" 
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Botões de pagamento -->
+                            <TextBlock Text="💳 FORMAS DE PAGAMENTO" Foreground="#475569" FontSize="12" FontWeight="Bold"/>
+                            
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                                <Button x:Name="BtnDinheiro" Grid.Column="0" Grid.Row="0" 
+                                        Content="💰 DINHEIRO" 
+                                        Classes="PagamentoBtn"
+                                        Background="#10B981" 
+                                        Foreground="White"/>
+                                
+                                <Button x:Name="BtnPix" Grid.Column="1" Grid.Row="0" 
+                                        Content="📱 PIX" 
+                                        Classes="PagamentoBtn"
+                                        Background="#6366F1" 
+                                        Foreground="White"/>
+                                
+                                <Button x:Name="BtnCartaoDebito" Grid.Column="0" Grid.Row="1" 
+                                        Content="💳 DÉBITO" 
+                                        Classes="PagamentoBtn"
+                                        Background="#F59E0B" 
+                                        Foreground="White"/>
+                                
+                                <Button x:Name="BtnCartaoCredito" Grid.Column="1" Grid.Row="1" 
+                                        Content="💎 CRÉDITO" 
+                                        Classes="PagamentoBtn"
+                                        Background="#8B5CF6" 
+                                        Foreground="White"/>
+                            </Grid>
+                            
+                            <!-- Troco Panel -->
+                            <StackPanel x:Name="TrocoPanel" IsVisible="False" Spacing="10">
+                                <Border Background="#FEF3C7" CornerRadius="8" Padding="10">
+                                    <TextBlock Text="💰 VALOR RECEBIDO" Foreground="#92400E" FontSize="12" FontWeight="Bold"/>
+                                </Border>
+                                <TextBox x:Name="ValorRecebidoInput" 
+                                         PlaceholderText="Digite o valor recebido"
+                                         Background="#FFFBEB"
+                                         BorderBrush="#FDE68A"/>
+                                <Button x:Name="BtnCalcularTroco" 
+                                        Content="💵 CALCULAR TROCO" 
+                                        Background="#F59E0B" 
+                                        Foreground="White"
+                                        CornerRadius="8"
+                                        Padding="15,10"
+                                        FontWeight="Bold"/>
+                                <TextBlock x:Name="TrocoText" Foreground="#10B981" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            </StackPanel>
                         </StackPanel>
                     </DockPanel>
                 </Border>
                 
-                <!-- Lista de produtos -->
-                <Border DockPanel.Dock="Top" Margin="15,15,15,0">
-                    <ScrollViewer Height="400" VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="ProdutosContainer" Spacing="10"/>
-                    </ScrollViewer>
-                </Border>
-            </DockPanel>
-        </Border>
-        
-        <!-- COLUNA DIREITA: PAGAMENTO -->
-        <Border Grid.Column="1" Background="#2C3E50" Margin="15" CornerRadius="12">
-            <DockPanel>
-                <!-- Cabeçalho -->
-                <Border DockPanel.Dock="Top" Background="#34495E" CornerRadius="12,12,0,0" Padding="20">
-                    <TextBlock Text="💰 TOTAL DA COMPRA" Foreground="White" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                </Border>
-                
-                <!-- Valor total -->
-                <Border DockPanel.Dock="Top" Background="#2C3E50" Padding="20">
-                    <StackPanel>
-                        <TextBlock Text="R$" Foreground="#BDC3C7" FontSize="18" HorizontalAlignment="Center"/>
-                        <TextBlock x:Name="TotalText" Foreground="#F1C40F" FontSize="48" FontWeight="Bold" HorizontalAlignment="Center" Text="0,00"/>
-                    </StackPanel>
-                </Border>
-                
-                <!-- Itens da venda (resumo) -->
-                <Border DockPanel.Dock="Top" Background="#34495E" Margin="15" CornerRadius="10">
-                    <StackPanel Margin="15">
-                        <TextBlock Text="📋 RESUMO DA VENDA" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
-                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
-                            <StackPanel x:Name="ResumoContainer" Spacing="8"/>
+                <!-- Resumo da venda -->
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="12" Padding="15" Margin="0,15,0,0">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Text="📋 RESUMO DA VENDA" FontWeight="Bold" FontSize="13" Foreground="#475569" Margin="0,0,0,10"/>
+                        <ScrollViewer Height="100">
+                            <StackPanel x:Name="ResumoContainer" Spacing="5"/>
                         </ScrollViewer>
-                    </StackPanel>
+                    </DockPanel>
                 </Border>
+            </Grid>
+        </Grid>
+        
+        <!-- Barra de Status -->
+        <Border DockPanel.Dock="Bottom" Background="#F8FAFC" Padding="15,10" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0">
+            <DockPanel>
+                <TextBlock x:Name="StatusText" 
+                           Text="✅ Sistema pronto! Passe o código do produto" 
+                           Foreground="#475569" 
+                           FontSize="12"/>
                 
-                <!-- Formas de pagamento -->
-                <Border DockPanel.Dock="Top" Background="#34495E" Margin="15,0,15,15" CornerRadius="10">
-                    <StackPanel Margin="15">
-                        <TextBlock Text="💳 FORMAS DE PAGAMENTO" Foreground="White" FontSize="12" FontWeight="Bold" Margin="0,0,0,15"/>
-                        
-                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="10">
-                            <Button Grid.Column="0" Grid.Row="0" x:Name="BtnDinheiro" 
-                                    Background="#27AE60" Foreground="White" FontSize="16" Padding="20,15">
-                                <StackPanel Orientation="Horizontal" Spacing="10">
-                                    <TextBlock Text="💰"/>
-                                    <TextBlock Text="DINHEIRO"/>
-                                </StackPanel>
-                            </Button>
-                            
-                            <Button Grid.Column="1" Grid.Row="0" x:Name="BtnPix" 
-                                    Background="#3498DB" Foreground="White" FontSize="16" Padding="20,15">
-                                <StackPanel Orientation="Horizontal" Spacing="10">
-                                    <TextBlock Text="📱"/>
-                                    <TextBlock Text="PIX"/>
-                                </StackPanel>
-                            </Button>
-                            
-                            <Button Grid.Column="0" Grid.Row="1" x:Name="BtnCartaoDebito" 
-                                    Background="#E67E22" Foreground="White" FontSize="16" Padding="20,15">
-                                <StackPanel Orientation="Horizontal" Spacing="10">
-                                    <TextBlock Text="💳"/>
-                                    <TextBlock Text="DÉBITO"/>
-                                </StackPanel>
-                            </Button>
-                            
-                            <Button Grid.Column="1" Grid.Row="1" x:Name="BtnCartaoCredito" 
-                                    Background="#9B59B6" Foreground="White" FontSize="16" Padding="20,15">
-                                <StackPanel Orientation="Horizontal" Spacing="10">
-                                    <TextBlock Text="💎"/>
-                                    <TextBlock Text="CRÉDITO"/>
-                                </StackPanel>
-                            </Button>
-                        </Grid>
-                        
-                        <!-- Campo para valor recebido (quando dinheiro) -->
-                        <StackPanel x:Name="TrocoPanel" Margin="0,15,0,0" IsVisible="False">
-                            <TextBlock Text="💰 VALOR RECEBIDO" Foreground="#BDC3C7" FontSize="12" Margin="0,0,0,5"/>
-                            <TextBox x:Name="ValorRecebidoInput" 
-                                     PlaceholderText="Digite o valor recebido"
-                                     Background="White"
-                                     BorderBrush="#DEE2E6"
-                                     BorderThickness="1"/>
-                            <Button x:Name="BtnCalcularTroco" Content="CALCULAR TROCO" 
-                                    Background="#3498DB" Foreground="White" Margin="0,10,0,0"/>
-                            <TextBlock x:Name="TrocoText" Foreground="#F1C40F" FontSize="18" FontWeight="Bold" Margin="0,10,0,0"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-                
-                <!-- Status -->
-                <Border DockPanel.Dock="Bottom" Background="#1A252F" CornerRadius="0,0,12,12" Padding="15">
-                    <TextBlock x:Name="StatusText" Foreground="#BDC3C7" FontSize="12" Text="✅ Sistema pronto para uso"/>
-                </Border>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="15">
+                    <TextBlock Text="🖨️ Cupom térmico" Foreground="#94A3B8" FontSize="11"/>
+                    <TextBlock Text="💾 Auto-save" Foreground="#94A3B8" FontSize="11"/>
+                </StackPanel>
             </DockPanel>
         </Border>
-    </Grid>
+    </DockPanel>
 </Window>

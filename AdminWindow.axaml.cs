@@ -12,8 +12,8 @@ namespace MeuCaixaPDV;
 public partial class AdminWindow : Window
 {
     private ProdutoService _produtoService;
-    private ObservableCollection<Produto> _produtos;
-    private Produto? _produtoSelecionado;
+    private ObservableCollection<Produto> _produtos = new();
+    private Produto? _produtoSelecionado = null;
     private ListBox _listaProdutos;
     
     public AdminWindow()

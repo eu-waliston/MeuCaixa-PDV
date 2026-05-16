@@ -1,15 +1,16 @@
 using System;
 using System.Linq;
+using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Threading;
 using MeuCaixaPDV.ViewModels;
 using MeuCaixaPDV.Models;
 using MeuCaixaPDV.Services;
 using MeuCaixaPDV.Data;
-
 
 namespace MeuCaixaPDV;
 
@@ -63,9 +64,9 @@ public partial class MainWindow : Window
             {
                 var adminWindow = new AdminWindow();
                 await adminWindow.ShowDialog(this);
-                // Recarregar produtos após fechar admin (opcional)
             };
-        // ✅ BOTÃO RELATÓRIO - ADICIONE AQUI!
+
+        // ✅ BOTÃO RELATÓRIO
         var btnRelatorio = this.FindControl<Button>("BtnRelatorio");
         if (btnRelatorio != null)
         {
@@ -172,7 +173,10 @@ public partial class MainWindow : Window
             grid.Children.Add(removeBtn);
 
             card.Child = grid;
+
+            // Adicionar card com animação
             _produtosContainer.Children.Add(card);
+            AnimarAdicaoProduto(card);
         }
 
         // Atualizar resumo na direita
@@ -193,6 +197,34 @@ public partial class MainWindow : Window
         }
 
         _totalText.Text = _viewModel.ItensVenda.Sum(i => i.Subtotal).ToString("F2");
+
+        // Atualizar badge de quantidade
+        var quantidadeText = this.FindControl<TextBlock>("QuantidadeText");
+        if (quantidadeText != null)
+        {
+            quantidadeText.Text = _viewModel.ItensVenda.Count.ToString();
+        }
+    }
+
+    private void AnimarAdicaoProduto(Border card)
+    {
+        // Animação de fade-in
+        card.Opacity = 0;
+        card.RenderTransform = new ScaleTransform(0.9, 0.9);
+
+        // Temporizador simples para animação
+        var timer = new Timer(50);
+        timer.Elapsed += (s, e) =>
+        {
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                card.Opacity = 1;
+                card.RenderTransform = null;
+            });
+            timer.Stop();
+            timer.Dispose();
+        };
+        timer.Start();
     }
 
     private void SelecionarPagamento(string tipo)
@@ -243,7 +275,6 @@ public partial class MainWindow : Window
     {
         var total = _viewModel.ItensVenda.Sum(i => i.Subtotal);
 
-
         try
         {
             _impressoraService.ImprimirCupom(_viewModel.ItensVenda.ToList(), total, tipo, valorPago);
@@ -254,14 +285,9 @@ public partial class MainWindow : Window
             _statusText.Text = $"⚠️ Erro na impressão: {ex.Message}";
         }
 
-        // Resto do código de finalização...
         var mensagem = tipo == "Dinheiro" ?
             $"💵 Venda finalizada em DINHEIRO\nTotal: R$ {total:F2}\nValor pago: R$ {valorPago:F2}\nTroco: R$ {(valorPago - total):F2}\n\n🖨️ Cupom impresso!" :
             $"✅ Venda finalizada em {tipo}\nTotal: R$ {total:F2}\n\n🖨️ Cupom impresso!";
-
-        // var mensagem = tipo == "Dinheiro" ?
-        //     $"💵 Venda finalizada em DINHEIRO\nTotal: R$ {total:F2}\nValor pago: R$ {valorPago:F2}\nTroco: R$ {(valorPago - total):F2}" :
-        //     $"✅ Venda finalizada em {tipo}\nTotal: R$ {total:F2}";
 
         // Dialog de confirmação
         var dialog = new Window

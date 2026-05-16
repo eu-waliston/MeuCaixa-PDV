@@ -1,4 +1,3 @@
-````md
 # 🛒 MeuCaixa PDV
 
 > Sistema de Ponto de Venda (PDV) moderno para minimercados, desenvolvido com **C# + Avalonia UI**, com suporte multiplataforma para **Linux** e **Windows**.
@@ -303,5 +302,3 @@ O **MeuCaixa PDV** foi criado para oferecer uma solução simples, leve e modern
 
 Sistema livre, open source e feito com muito café ☕ e código.
 
-```
-```

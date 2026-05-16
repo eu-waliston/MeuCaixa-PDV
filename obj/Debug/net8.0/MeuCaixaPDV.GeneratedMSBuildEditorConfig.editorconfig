@@ -19,6 +19,9 @@ build_property.ProjectDir = /home/waliston/Documents/Personal_Projects/MeuCaixa/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
+[/home/waliston/Documents/Personal_Projects/MeuCaixa/MeuCaixaPDV/AdminWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/waliston/Documents/Personal_Projects/MeuCaixa/MeuCaixaPDV/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

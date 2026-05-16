@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MeuCaixaPDV")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b476dc5ba8e0b7589c42a180b507c5a6572f45c3")]
 [assembly: System.Reflection.AssemblyProductAttribute("MeuCaixaPDV")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MeuCaixaPDV")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

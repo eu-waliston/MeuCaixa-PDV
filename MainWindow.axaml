@@ -48,16 +48,30 @@
                 </Border>
                 
                 <!-- Campo de código de barras -->
-                <Border DockPanel.Dock="Top" Background="#F8F9FA" Padding="15">
-                    <StackPanel>
-                        <TextBlock Text="📦 CÓDIGO DE BARRAS" Foreground="#7F8C8D" FontSize="12" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <TextBox x:Name="CodigoInput" 
-                                 PlaceholderText="Digite ou passe o código aqui e pressione ENTER"
-                                 FontSize="16"
-                                 Background="White"
-                                 BorderBrush="#DEE2E6"
-                                 BorderThickness="1"/>
-                    </StackPanel>
+                <Border DockPanel.Dock="Top" Background="#2C3E50" Padding="10">
+                    <DockPanel>
+                        <Button x:Name="BtnAdmin" 
+                                DockPanel.Dock="Right"
+                                Content="⚙️ ADMINISTRAR PRODUTOS" 
+                                Background="#E67E22" 
+                                Foreground="White"
+                                FontSize="12"
+                                Padding="15,8"
+                                CornerRadius="6"
+                                Cursor="Hand"
+                                Margin="10,0,0,0"/>
+                        
+                        <StackPanel>
+                            <TextBlock Text="📦 CÓDIGO DE BARRAS" Foreground="#BDC3C7" FontSize="12" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <TextBox x:Name="CodigoInput" 
+                                    PlaceholderText="Digite ou passe o código aqui e pressione ENTER"
+                                    FontSize="16"
+                                    Background="White"
+                                    BorderBrush="#DEE2E6"
+                                    BorderThickness="1"
+                                    Width="400"/>
+                        </StackPanel>
+                    </DockPanel>
                 </Border>
                 
                 <!-- Lista de produtos -->

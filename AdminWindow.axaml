@@ -1,0 +1,91 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MeuCaixaPDV.AdminWindow"
+        Title="Administração de Produtos"
+        Width="900" Height="600"
+        MinWidth="700" MinHeight="500"
+        Background="#F5F6FA">
+    
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+        </Style>
+        
+        <Style Selector="Button">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Styles>
+    
+    <DockPanel>
+        <!-- Cabeçalho -->
+        <Border DockPanel.Dock="Top" Background="#2C3E50" CornerRadius="0,0,12,12" Padding="20">
+            <StackPanel>
+                <TextBlock Text="⚙️ ADMINISTRAÇÃO DE PRODUTOS" Foreground="White" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Cadastre, edite ou remova produtos do sistema" Foreground="#BDC3C7" FontSize="12" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+        
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- ESQUERDA: LISTA DE PRODUTOS -->
+            <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="15">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,15">
+                        <Button x:Name="BtnBuscar" DockPanel.Dock="Right" Content="🔍 BUSCAR" Background="#3498DB" Foreground="White" Margin="10,0,0,0"/>
+                        <TextBox x:Name="TxtBusca" PlaceholderText="Buscar por nome ou código..."/>
+                    </DockPanel>
+                    
+                    <ScrollViewer>
+                        <ListBox x:Name="ListaProdutos" Height="400"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+            
+            <!-- DIREITA: FORMULÁRIO -->
+            <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="20" Margin="15,0,0,0">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="📝 CADASTRO DE PRODUTO" FontWeight="Bold" FontSize="16" Margin="0,0,0,20"/>
+                    
+                    <StackPanel DockPanel.Dock="Top" Spacing="15">
+                        <StackPanel>
+                            <TextBlock Text="CÓDIGO DE BARRAS" FontSize="12" FontWeight="Bold" Foreground="#7F8C8D"/>
+                            <TextBox x:Name="TxtCodigo" PlaceholderText="Digite o código de barras"/>
+                        </StackPanel>
+                        
+                        <StackPanel>
+                            <TextBlock Text="NOME DO PRODUTO" FontSize="12" FontWeight="Bold" Foreground="#7F8C8D"/>
+                            <TextBox x:Name="TxtNome" PlaceholderText="Digite o nome do produto"/>
+                        </StackPanel>
+                        
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                            <StackPanel>
+                                <TextBlock Text="PREÇO (R$)" FontSize="12" FontWeight="Bold" Foreground="#7F8C8D"/>
+                                <TextBox x:Name="TxtPreco" PlaceholderText="0,00"/>
+                            </StackPanel>
+                            
+                            <StackPanel>
+                                <TextBlock Text="ESTOQUE" FontSize="12" FontWeight="Bold" Foreground="#7F8C8D"/>
+                                <TextBox x:Name="TxtEstoque" PlaceholderText="0"/>
+                            </StackPanel>
+                        </Grid>
+                        
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,20,0,0">
+                            <Button x:Name="BtnSalvar" Content="💾 SALVAR" Background="#27AE60" Foreground="White" FontSize="14" Padding="15,10"/>
+                            <Button x:Name="BtnCancelar" Content="🗑️ CANCELAR" Background="#95A5A6" Foreground="White" FontSize="14" Padding="15,10"/>
+                        </Grid>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>
